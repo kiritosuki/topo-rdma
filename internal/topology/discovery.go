@@ -18,8 +18,8 @@ var pciAddressPattern = regexp.MustCompile(`^[[:xdigit:]]{4}:[[:xdigit:]]{2}:[[:
 
 type PCIDevice struct {
 	ID         string `json:"id"`
-	PCIAddress string `json:"PCIAddress"`
-	VendorID   string `json:"venderID,omitempty"`
+	PCIAddress string `json:"pciAddress"`
+	VendorID   string `json:"vendorID,omitempty"`
 }
 
 type RDMADevice struct {
@@ -204,6 +204,7 @@ func (d *Discoverer) discoverRDMA() ([]locatedRDMA, error) {
 		// 获取网卡设备名集合
 		netDevices, err := directoryNames(filepath.Join(path, "device", "net"))
 		result = append(result, locatedRDMA{
+			// 如果numa_node文件不存在 这里numa=-1
 			numa: numa,
 			device: RDMADevice{
 				Name:       name,
