@@ -36,7 +36,7 @@ type NUMANode struct {
 }
 
 type Snapshot struct {
-	NUMANodes      []NUMANode   `json:"NUMANodes"`
+	NUMANodes      []NUMANode   `json:"numaNodes"`
 	UnassignedGPUs []PCIDevice  `json:"unassignedGPUs,omitempty"`
 	UnassignedRDMA []RDMADevice `json:"unassignedRDMA,omitempty"`
 }
@@ -158,7 +158,7 @@ func (d *Discoverer) discoverGPUs() ([]locatedGPU, error) {
 		// 读取PCI设备目录下的class
 		class, err := readTrimmed(filepath.Join(path, "class"))
 		if err != nil {
-			return nil, fmt.Errorf("read GPU NUMA node for %s: %w", filepath.Base(path), err)
+			return nil, fmt.Errorf("read PCI class for %s: %w", filepath.Base(path), err)
 		}
 		if !isGPU(vendor, class) {
 			continue
@@ -266,7 +266,7 @@ func readNUMANode(path string) (int, error) {
 }
 
 func pciAddressForDevice(path string) (string, error) {
-	// 软连接 -> 返回PCI设备目录的真实路径
+	// 软链接 -> 返回PCI设备目录的真实路径
 	resolved, err := filepath.EvalSymlinks(path)
 	if err != nil {
 		if os.IsNotExist(err) {

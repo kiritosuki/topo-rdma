@@ -38,7 +38,7 @@ type RDMADevice struct {
 }
 
 type NUMANode struct {
-	// +kubebuilderr:validation:Minimum=0
+	// +kubebuilder:validation:Minimum=0
 	ID int32 `json:"id"`
 	// +kubebuilder:validation:MinLength=1
 	CPUs string `json:"cpus"`
