@@ -59,6 +59,7 @@ type locatedRDMA struct {
 	device RDMADevice
 }
 
+// Discover 发现硬件设备
 func (d *Discoverer) Discover() (Snapshot, error) {
 	// 发现numa节点
 	nodes, err := d.discoverNumaNodes()
@@ -102,6 +103,7 @@ func (d *Discoverer) Discover() (Snapshot, error) {
 	return snapshot, nil
 }
 
+// discoverNumaNodes 发现 NUMA 节点
 func (d *Discoverer) discoverNumaNodes() ([]NUMANode, error) {
 	// 列出所有numa node
 	paths, err := filepath.Glob(d.path("/sys/devices/system/node/node[0-9]*"))
@@ -138,6 +140,7 @@ func (d *Discoverer) discoverNumaNodes() ([]NUMANode, error) {
 	return nodes, nil
 }
 
+// discoverGPUs 发现 GPU
 func (d *Discoverer) discoverGPUs() ([]locatedGPU, error) {
 	// 列出所有PCI设备 目录一般为PCI BDF地址
 	paths, err := filepath.Glob(d.path("/sys/bus/pci/devices/*"))
@@ -182,6 +185,7 @@ func (d *Discoverer) discoverGPUs() ([]locatedGPU, error) {
 	return result, nil
 }
 
+// discoverRDMA 发现 RDMA
 func (d *Discoverer) discoverRDMA() ([]locatedRDMA, error) {
 	// 列出所有RDMA网卡目录
 	paths, err := filepath.Glob(d.path("/sys/class/infiniband/*"))

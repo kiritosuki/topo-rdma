@@ -14,7 +14,7 @@ spec:
     shortNames:
     - ntopo
     singular: nodetopology
-  scope: Namespaced
+  scope: Cluster
   versions:
   - additionalPrinterColumns:
     - jsonPath: '''.spec.nodeName'''

@@ -17,6 +17,7 @@ type Observer interface {
 	ObservePublication(duration time.Duration, snapshot topology.Snapshot, err error)
 }
 
+// 空实现 作用类似开关
 type noopObserver struct{}
 
 func (noopObserver) ObservePublication(duration time.Duration, snapshot topology.Snapshot, err error) {
@@ -83,6 +84,7 @@ func NewPrometheusObserver(registerer prometheus.Registerer) *PrometheusObserver
 	return observer
 }
 
+// ObservePublication 观察发布结果 记录并更新metrics指标
 func (o *PrometheusObserver) ObservePublication(duration time.Duration, snapshot topology.Snapshot, err error) {
 	result := metricResult(err)
 	o.publicationTotal.WithLabelValues(result).Inc()

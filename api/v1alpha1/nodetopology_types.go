@@ -69,7 +69,7 @@ type NodeTopologyStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:shortName=ntopo
+// +kubebuilder:resource:scope=Cluster,shortName=ntopo
 // +kubebuilder:printcolumn:name="Node",type=string,JSONPath='.spec.nodeName'
 // +kubebuilder:printcolumn:name="Discovered",type=string,JSONPath=`.status.conditions[?(@.type=="Discovered")].status`
 // +kubebuilder:printcolumn:name="Fresh",type=string,JSONPath=`.status.conditions[?(@.type=="Fresh")].status`
