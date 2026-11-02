@@ -53,13 +53,12 @@ func (p *Publisher) Run(ctx context.Context) error {
 	}
 }
 
-func (p *Publisher) PublishOnce(ctx context.Context) error {
-	if err := p.validate(); err != nil {
+func (p *Publisher) PublishOnce(ctx context.Context) (err error) {
+	if err = p.validate(); err != nil {
 		return err
 	}
 	started := time.Now()
 	var snapshot topology.Snapshot
-	var err error
 	defer func() {
 		// 结束时记录并更新metrics指标
 		p.Observer.ObservePublication(time.Since(started), snapshot, err)
