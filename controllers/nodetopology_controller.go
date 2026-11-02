@@ -81,7 +81,7 @@ func (r *NodeTopologyReconciler) Reconcile(ctx context.Context, request ctrl.Req
 	}, nil
 }
 
-// SetupWithManager 注册conciler
+// SetupWithManager 注册controller
 func (r *NodeTopologyReconciler) SetupWithManager(manager ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(manager).
 		For(&topov1alpha1.NodeTopology{}).
